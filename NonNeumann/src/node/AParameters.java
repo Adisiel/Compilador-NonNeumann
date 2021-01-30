@@ -9,7 +9,7 @@ import analysis.*;
 public final class AParameters extends PParameters
 {
     private PParameter _parameter_;
-    private final LinkedList<PParametersAuxiliar> _parametersAuxiliar_ = new LinkedList<PParametersAuxiliar>();
+    private final LinkedList<PParametersSequence> _parametersSequence_ = new LinkedList<PParametersSequence>();
 
     public AParameters()
     {
@@ -18,12 +18,12 @@ public final class AParameters extends PParameters
 
     public AParameters(
         @SuppressWarnings("hiding") PParameter _parameter_,
-        @SuppressWarnings("hiding") List<PParametersAuxiliar> _parametersAuxiliar_)
+        @SuppressWarnings("hiding") List<PParametersSequence> _parametersSequence_)
     {
         // Constructor
         setParameter(_parameter_);
 
-        setParametersAuxiliar(_parametersAuxiliar_);
+        setParametersSequence(_parametersSequence_);
 
     }
 
@@ -32,7 +32,7 @@ public final class AParameters extends PParameters
     {
         return new AParameters(
             cloneNode(this._parameter_),
-            cloneList(this._parametersAuxiliar_));
+            cloneList(this._parametersSequence_));
     }
 
     public void apply(Switch sw)
@@ -65,16 +65,16 @@ public final class AParameters extends PParameters
         this._parameter_ = node;
     }
 
-    public LinkedList<PParametersAuxiliar> getParametersAuxiliar()
+    public LinkedList<PParametersSequence> getParametersSequence()
     {
-        return this._parametersAuxiliar_;
+        return this._parametersSequence_;
     }
 
-    public void setParametersAuxiliar(List<PParametersAuxiliar> list)
+    public void setParametersSequence(List<PParametersSequence> list)
     {
-        this._parametersAuxiliar_.clear();
-        this._parametersAuxiliar_.addAll(list);
-        for(PParametersAuxiliar e : list)
+        this._parametersSequence_.clear();
+        this._parametersSequence_.addAll(list);
+        for(PParametersSequence e : list)
         {
             if(e.parent() != null)
             {
@@ -90,7 +90,7 @@ public final class AParameters extends PParameters
     {
         return ""
             + toString(this._parameter_)
-            + toString(this._parametersAuxiliar_);
+            + toString(this._parametersSequence_);
     }
 
     @Override
@@ -103,7 +103,7 @@ public final class AParameters extends PParameters
             return;
         }
 
-        if(this._parametersAuxiliar_.remove(child))
+        if(this._parametersSequence_.remove(child))
         {
             return;
         }
@@ -121,13 +121,13 @@ public final class AParameters extends PParameters
             return;
         }
 
-        for(ListIterator<PParametersAuxiliar> i = this._parametersAuxiliar_.listIterator(); i.hasNext();)
+        for(ListIterator<PParametersSequence> i = this._parametersSequence_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PParametersAuxiliar) newChild);
+                    i.set((PParametersSequence) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;

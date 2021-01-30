@@ -5,22 +5,22 @@ package node;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIfStatement extends PIfStatement
+public final class AElseStatement extends PElseStatement
 {
-    private TIf _if_;
+    private TElse _else_;
     private PTerm _term_;
 
-    public AIfStatement()
+    public AElseStatement()
     {
         // Constructor
     }
 
-    public AIfStatement(
-        @SuppressWarnings("hiding") TIf _if_,
+    public AElseStatement(
+        @SuppressWarnings("hiding") TElse _else_,
         @SuppressWarnings("hiding") PTerm _term_)
     {
         // Constructor
-        setIf(_if_);
+        setElse(_else_);
 
         setTerm(_term_);
 
@@ -29,26 +29,26 @@ public final class AIfStatement extends PIfStatement
     @Override
     public Object clone()
     {
-        return new AIfStatement(
-            cloneNode(this._if_),
+        return new AElseStatement(
+            cloneNode(this._else_),
             cloneNode(this._term_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIfStatement(this);
+        ((Analysis) sw).caseAElseStatement(this);
     }
 
-    public TIf getIf()
+    public TElse getElse()
     {
-        return this._if_;
+        return this._else_;
     }
 
-    public void setIf(TIf node)
+    public void setElse(TElse node)
     {
-        if(this._if_ != null)
+        if(this._else_ != null)
         {
-            this._if_.parent(null);
+            this._else_.parent(null);
         }
 
         if(node != null)
@@ -61,7 +61,7 @@ public final class AIfStatement extends PIfStatement
             node.parent(this);
         }
 
-        this._if_ = node;
+        this._else_ = node;
     }
 
     public PTerm getTerm()
@@ -93,7 +93,7 @@ public final class AIfStatement extends PIfStatement
     public String toString()
     {
         return ""
-            + toString(this._if_)
+            + toString(this._else_)
             + toString(this._term_);
     }
 
@@ -101,9 +101,9 @@ public final class AIfStatement extends PIfStatement
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._if_ == child)
+        if(this._else_ == child)
         {
-            this._if_ = null;
+            this._else_ = null;
             return;
         }
 
@@ -120,9 +120,9 @@ public final class AIfStatement extends PIfStatement
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._if_ == oldChild)
+        if(this._else_ == oldChild)
         {
-            setIf((TIf) newChild);
+            setElse((TElse) newChild);
             return;
         }
 

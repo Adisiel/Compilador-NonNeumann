@@ -8,7 +8,7 @@ import analysis.*;
 @SuppressWarnings("nls")
 public final class AProgram extends PProgram
 {
-    private final LinkedList<PDecFunction> _decFunction_ = new LinkedList<PDecFunction>();
+    private final LinkedList<PFunctionDescription> _functionDescription_ = new LinkedList<PFunctionDescription>();
 
     public AProgram()
     {
@@ -16,10 +16,10 @@ public final class AProgram extends PProgram
     }
 
     public AProgram(
-        @SuppressWarnings("hiding") List<PDecFunction> _decFunction_)
+        @SuppressWarnings("hiding") List<PFunctionDescription> _functionDescription_)
     {
         // Constructor
-        setDecFunction(_decFunction_);
+        setFunctionDescription(_functionDescription_);
 
     }
 
@@ -27,7 +27,7 @@ public final class AProgram extends PProgram
     public Object clone()
     {
         return new AProgram(
-            cloneList(this._decFunction_));
+            cloneList(this._functionDescription_));
     }
 
     public void apply(Switch sw)
@@ -35,16 +35,16 @@ public final class AProgram extends PProgram
         ((Analysis) sw).caseAProgram(this);
     }
 
-    public LinkedList<PDecFunction> getDecFunction()
+    public LinkedList<PFunctionDescription> getFunctionDescription()
     {
-        return this._decFunction_;
+        return this._functionDescription_;
     }
 
-    public void setDecFunction(List<PDecFunction> list)
+    public void setFunctionDescription(List<PFunctionDescription> list)
     {
-        this._decFunction_.clear();
-        this._decFunction_.addAll(list);
-        for(PDecFunction e : list)
+        this._functionDescription_.clear();
+        this._functionDescription_.addAll(list);
+        for(PFunctionDescription e : list)
         {
             if(e.parent() != null)
             {
@@ -59,14 +59,14 @@ public final class AProgram extends PProgram
     public String toString()
     {
         return ""
-            + toString(this._decFunction_);
+            + toString(this._functionDescription_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._decFunction_.remove(child))
+        if(this._functionDescription_.remove(child))
         {
             return;
         }
@@ -78,13 +78,13 @@ public final class AProgram extends PProgram
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        for(ListIterator<PDecFunction> i = this._decFunction_.listIterator(); i.hasNext();)
+        for(ListIterator<PFunctionDescription> i = this._functionDescription_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PDecFunction) newChild);
+                    i.set((PFunctionDescription) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;

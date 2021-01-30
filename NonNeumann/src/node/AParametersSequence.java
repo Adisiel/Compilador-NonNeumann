@@ -5,50 +5,50 @@ package node;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIfStatement extends PIfStatement
+public final class AParametersSequence extends PParametersSequence
 {
-    private TIf _if_;
-    private PTerm _term_;
+    private TComma _comma_;
+    private PParameter _parameter_;
 
-    public AIfStatement()
+    public AParametersSequence()
     {
         // Constructor
     }
 
-    public AIfStatement(
-        @SuppressWarnings("hiding") TIf _if_,
-        @SuppressWarnings("hiding") PTerm _term_)
+    public AParametersSequence(
+        @SuppressWarnings("hiding") TComma _comma_,
+        @SuppressWarnings("hiding") PParameter _parameter_)
     {
         // Constructor
-        setIf(_if_);
+        setComma(_comma_);
 
-        setTerm(_term_);
+        setParameter(_parameter_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AIfStatement(
-            cloneNode(this._if_),
-            cloneNode(this._term_));
+        return new AParametersSequence(
+            cloneNode(this._comma_),
+            cloneNode(this._parameter_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIfStatement(this);
+        ((Analysis) sw).caseAParametersSequence(this);
     }
 
-    public TIf getIf()
+    public TComma getComma()
     {
-        return this._if_;
+        return this._comma_;
     }
 
-    public void setIf(TIf node)
+    public void setComma(TComma node)
     {
-        if(this._if_ != null)
+        if(this._comma_ != null)
         {
-            this._if_.parent(null);
+            this._comma_.parent(null);
         }
 
         if(node != null)
@@ -61,19 +61,19 @@ public final class AIfStatement extends PIfStatement
             node.parent(this);
         }
 
-        this._if_ = node;
+        this._comma_ = node;
     }
 
-    public PTerm getTerm()
+    public PParameter getParameter()
     {
-        return this._term_;
+        return this._parameter_;
     }
 
-    public void setTerm(PTerm node)
+    public void setParameter(PParameter node)
     {
-        if(this._term_ != null)
+        if(this._parameter_ != null)
         {
-            this._term_.parent(null);
+            this._parameter_.parent(null);
         }
 
         if(node != null)
@@ -86,30 +86,30 @@ public final class AIfStatement extends PIfStatement
             node.parent(this);
         }
 
-        this._term_ = node;
+        this._parameter_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._if_)
-            + toString(this._term_);
+            + toString(this._comma_)
+            + toString(this._parameter_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._if_ == child)
+        if(this._comma_ == child)
         {
-            this._if_ = null;
+            this._comma_ = null;
             return;
         }
 
-        if(this._term_ == child)
+        if(this._parameter_ == child)
         {
-            this._term_ = null;
+            this._parameter_ = null;
             return;
         }
 
@@ -120,15 +120,15 @@ public final class AIfStatement extends PIfStatement
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._if_ == oldChild)
+        if(this._comma_ == oldChild)
         {
-            setIf((TIf) newChild);
+            setComma((TComma) newChild);
             return;
         }
 
-        if(this._term_ == oldChild)
+        if(this._parameter_ == oldChild)
         {
-            setTerm((PTerm) newChild);
+            setParameter((PParameter) newChild);
             return;
         }
 

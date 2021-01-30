@@ -9,7 +9,7 @@ import analysis.*;
 public final class AListIdentifiers extends PListIdentifiers
 {
     private TIdentifier _identifier_;
-    private final LinkedList<PListIdentifiersAux> _listIdentifiersAux_ = new LinkedList<PListIdentifiersAux>();
+    private final LinkedList<PListIdentifiersSequence> _listIdentifiersSequence_ = new LinkedList<PListIdentifiersSequence>();
 
     public AListIdentifiers()
     {
@@ -18,12 +18,12 @@ public final class AListIdentifiers extends PListIdentifiers
 
     public AListIdentifiers(
         @SuppressWarnings("hiding") TIdentifier _identifier_,
-        @SuppressWarnings("hiding") List<PListIdentifiersAux> _listIdentifiersAux_)
+        @SuppressWarnings("hiding") List<PListIdentifiersSequence> _listIdentifiersSequence_)
     {
         // Constructor
         setIdentifier(_identifier_);
 
-        setListIdentifiersAux(_listIdentifiersAux_);
+        setListIdentifiersSequence(_listIdentifiersSequence_);
 
     }
 
@@ -32,7 +32,7 @@ public final class AListIdentifiers extends PListIdentifiers
     {
         return new AListIdentifiers(
             cloneNode(this._identifier_),
-            cloneList(this._listIdentifiersAux_));
+            cloneList(this._listIdentifiersSequence_));
     }
 
     public void apply(Switch sw)
@@ -65,16 +65,16 @@ public final class AListIdentifiers extends PListIdentifiers
         this._identifier_ = node;
     }
 
-    public LinkedList<PListIdentifiersAux> getListIdentifiersAux()
+    public LinkedList<PListIdentifiersSequence> getListIdentifiersSequence()
     {
-        return this._listIdentifiersAux_;
+        return this._listIdentifiersSequence_;
     }
 
-    public void setListIdentifiersAux(List<PListIdentifiersAux> list)
+    public void setListIdentifiersSequence(List<PListIdentifiersSequence> list)
     {
-        this._listIdentifiersAux_.clear();
-        this._listIdentifiersAux_.addAll(list);
-        for(PListIdentifiersAux e : list)
+        this._listIdentifiersSequence_.clear();
+        this._listIdentifiersSequence_.addAll(list);
+        for(PListIdentifiersSequence e : list)
         {
             if(e.parent() != null)
             {
@@ -90,7 +90,7 @@ public final class AListIdentifiers extends PListIdentifiers
     {
         return ""
             + toString(this._identifier_)
-            + toString(this._listIdentifiersAux_);
+            + toString(this._listIdentifiersSequence_);
     }
 
     @Override
@@ -103,7 +103,7 @@ public final class AListIdentifiers extends PListIdentifiers
             return;
         }
 
-        if(this._listIdentifiersAux_.remove(child))
+        if(this._listIdentifiersSequence_.remove(child))
         {
             return;
         }
@@ -121,13 +121,13 @@ public final class AListIdentifiers extends PListIdentifiers
             return;
         }
 
-        for(ListIterator<PListIdentifiersAux> i = this._listIdentifiersAux_.listIterator(); i.hasNext();)
+        for(ListIterator<PListIdentifiersSequence> i = this._listIdentifiersSequence_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PListIdentifiersAux) newChild);
+                    i.set((PListIdentifiersSequence) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;

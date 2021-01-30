@@ -9,7 +9,7 @@ import analysis.*;
 public final class AParametersAssign extends PParametersAssign
 {
     private PParameterAssign _parameterAssign_;
-    private final LinkedList<PParametersAssignAux> _parametersAssignAux_ = new LinkedList<PParametersAssignAux>();
+    private final LinkedList<PParametersAssignSequence> _parametersAssignSequence_ = new LinkedList<PParametersAssignSequence>();
 
     public AParametersAssign()
     {
@@ -18,12 +18,12 @@ public final class AParametersAssign extends PParametersAssign
 
     public AParametersAssign(
         @SuppressWarnings("hiding") PParameterAssign _parameterAssign_,
-        @SuppressWarnings("hiding") List<PParametersAssignAux> _parametersAssignAux_)
+        @SuppressWarnings("hiding") List<PParametersAssignSequence> _parametersAssignSequence_)
     {
         // Constructor
         setParameterAssign(_parameterAssign_);
 
-        setParametersAssignAux(_parametersAssignAux_);
+        setParametersAssignSequence(_parametersAssignSequence_);
 
     }
 
@@ -32,7 +32,7 @@ public final class AParametersAssign extends PParametersAssign
     {
         return new AParametersAssign(
             cloneNode(this._parameterAssign_),
-            cloneList(this._parametersAssignAux_));
+            cloneList(this._parametersAssignSequence_));
     }
 
     public void apply(Switch sw)
@@ -65,16 +65,16 @@ public final class AParametersAssign extends PParametersAssign
         this._parameterAssign_ = node;
     }
 
-    public LinkedList<PParametersAssignAux> getParametersAssignAux()
+    public LinkedList<PParametersAssignSequence> getParametersAssignSequence()
     {
-        return this._parametersAssignAux_;
+        return this._parametersAssignSequence_;
     }
 
-    public void setParametersAssignAux(List<PParametersAssignAux> list)
+    public void setParametersAssignSequence(List<PParametersAssignSequence> list)
     {
-        this._parametersAssignAux_.clear();
-        this._parametersAssignAux_.addAll(list);
-        for(PParametersAssignAux e : list)
+        this._parametersAssignSequence_.clear();
+        this._parametersAssignSequence_.addAll(list);
+        for(PParametersAssignSequence e : list)
         {
             if(e.parent() != null)
             {
@@ -90,7 +90,7 @@ public final class AParametersAssign extends PParametersAssign
     {
         return ""
             + toString(this._parameterAssign_)
-            + toString(this._parametersAssignAux_);
+            + toString(this._parametersAssignSequence_);
     }
 
     @Override
@@ -103,7 +103,7 @@ public final class AParametersAssign extends PParametersAssign
             return;
         }
 
-        if(this._parametersAssignAux_.remove(child))
+        if(this._parametersAssignSequence_.remove(child))
         {
             return;
         }
@@ -121,13 +121,13 @@ public final class AParametersAssign extends PParametersAssign
             return;
         }
 
-        for(ListIterator<PParametersAssignAux> i = this._parametersAssignAux_.listIterator(); i.hasNext();)
+        for(ListIterator<PParametersAssignSequence> i = this._parametersAssignSequence_.listIterator(); i.hasNext();)
         {
             if(i.next() == oldChild)
             {
                 if(newChild != null)
                 {
-                    i.set((PParametersAssignAux) newChild);
+                    i.set((PParametersAssignSequence) newChild);
                     newChild.parent(this);
                     oldChild.parent(null);
                     return;

@@ -5,26 +5,22 @@ package node;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AGtExpression extends PExpression
+public final class ANegationExpression extends PExpression
 {
-    private PExpression _expression_;
-    private TBigger _bigger_;
+    private TExclamation _exclamation_;
     private POperation _operation_;
 
-    public AGtExpression()
+    public ANegationExpression()
     {
         // Constructor
     }
 
-    public AGtExpression(
-        @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TBigger _bigger_,
+    public ANegationExpression(
+        @SuppressWarnings("hiding") TExclamation _exclamation_,
         @SuppressWarnings("hiding") POperation _operation_)
     {
         // Constructor
-        setExpression(_expression_);
-
-        setBigger(_bigger_);
+        setExclamation(_exclamation_);
 
         setOperation(_operation_);
 
@@ -33,27 +29,26 @@ public final class AGtExpression extends PExpression
     @Override
     public Object clone()
     {
-        return new AGtExpression(
-            cloneNode(this._expression_),
-            cloneNode(this._bigger_),
+        return new ANegationExpression(
+            cloneNode(this._exclamation_),
             cloneNode(this._operation_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAGtExpression(this);
+        ((Analysis) sw).caseANegationExpression(this);
     }
 
-    public PExpression getExpression()
+    public TExclamation getExclamation()
     {
-        return this._expression_;
+        return this._exclamation_;
     }
 
-    public void setExpression(PExpression node)
+    public void setExclamation(TExclamation node)
     {
-        if(this._expression_ != null)
+        if(this._exclamation_ != null)
         {
-            this._expression_.parent(null);
+            this._exclamation_.parent(null);
         }
 
         if(node != null)
@@ -66,32 +61,7 @@ public final class AGtExpression extends PExpression
             node.parent(this);
         }
 
-        this._expression_ = node;
-    }
-
-    public TBigger getBigger()
-    {
-        return this._bigger_;
-    }
-
-    public void setBigger(TBigger node)
-    {
-        if(this._bigger_ != null)
-        {
-            this._bigger_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._bigger_ = node;
+        this._exclamation_ = node;
     }
 
     public POperation getOperation()
@@ -123,8 +93,7 @@ public final class AGtExpression extends PExpression
     public String toString()
     {
         return ""
-            + toString(this._expression_)
-            + toString(this._bigger_)
+            + toString(this._exclamation_)
             + toString(this._operation_);
     }
 
@@ -132,15 +101,9 @@ public final class AGtExpression extends PExpression
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._expression_ == child)
+        if(this._exclamation_ == child)
         {
-            this._expression_ = null;
-            return;
-        }
-
-        if(this._bigger_ == child)
-        {
-            this._bigger_ = null;
+            this._exclamation_ = null;
             return;
         }
 
@@ -157,15 +120,9 @@ public final class AGtExpression extends PExpression
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._expression_ == oldChild)
+        if(this._exclamation_ == oldChild)
         {
-            setExpression((PExpression) newChild);
-            return;
-        }
-
-        if(this._bigger_ == oldChild)
-        {
-            setBigger((TBigger) newChild);
+            setExclamation((TExclamation) newChild);
             return;
         }
 

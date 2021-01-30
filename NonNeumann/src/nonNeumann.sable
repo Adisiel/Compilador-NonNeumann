@@ -53,7 +53,7 @@ int_hexadecimal = '0''x'(hex_digit)+;
 int_decimal = (digit)+;
 float= (digit)+ '.' (digit)+;
 cientific_notation = (digit)+'E''-'(digit)+ | (digit)+'E'(digit)+;
-identifier = (letter | underline)+;
+identifier = ((letter | underline)+(digit | letter)*);
 blank = (space | tabulation | end_of_line)+;
 line_comment = ';' not_cr_nl* end_of_line;
 block_comment = '{-' not_trace* '-'+ (not_trace_brace not_trace* '-'+)* '}';
@@ -65,96 +65,93 @@ block_comment;
 
 Productions 
 
-	program = dec_function+;
+	program = function_description+;
 	
-	dec_function = entry? left_parentheses function type identifier function_param_auxiliar colon function_expression_auxiliar right_parentheses;
+	function_description = entry? left_parentheses function type identifier function_parameters colon function_expression right_parentheses;
 	
-	function_param_auxiliar = left_parentheses parameters* right_parentheses;
+	function_parameters = left_parentheses parameters* right_parentheses;
 	
-	function_expression_auxiliar = left_parentheses expression right_parentheses;
+	function_expression = left_parentheses expression right_parentheses;
 	
-	type = {int}int
-		|{real}real
-		|{bool}bool;
+	type = {int} int
+		|{real} real
+		|{bool} bool;
 		
-	parameters = parameter parameters_auxiliar*;
+	parameters = parameter parameters_sequence*;
 	
-	parameters_auxiliar = comma parameter;
+	parameters_sequence = comma parameter;
 	
-	parameter =  {dec}type identifier
-		|{assign}assign;
+	parameter = {type} type identifier
+		|{assign_function} assign_function;
 		
-	assign = type identifier left_parentheses parameter_assign right_parentheses;
+	assign_function = type identifier left_parentheses parameters_assign? right_parentheses;
 	
-	parameters_assign = parameter_assign parameters_assign_aux*;
+	parameters_assign = parameter_assign parameters_assign_sequence*;
 	
-	parameters_assign_aux = comma parameters_assign;
+	parameters_assign_sequence = comma parameter_assign;
 	
-	parameter_assign = {type}type
-		|{assign}assign;
+	parameter_assign = {type} type
+		|{assign_function} assign_function;
 		
-	expression = {op}op
-		|{gt} expression bigger op
-		|{lt}expression minor op
-		|{equal}expression equal op
-		|{neg_bool} exclamation op
-		|{or}expression or op
-		|{and}expression and op
-		|{if_statement} if_statement
+	expression = {operation} operation
+		|{gt} expression bigger operation
+		|{lt} expression minor operation
+		|{equal} expression equal operation
+		|{negation} exclamation operation
+		|{or} expression or operation
+		|{and} expression and operation
+		|{if_then_else_statement} if_then_else_statement
 		|{lambda} lambda;
 
-	
-	op = {factor}factor
-		|{plus}op plus factor
-  		|{minus}op minus factor;
+	operation = {factor} factor
+		|{plus} operation plus factor
+  		|{minus} operation minus factor;
 			
 	factor = {term} term
+		|{negative_number} negative_number
 		|{mult} factor product term
 		|{div} factor divide term
-		|{neg} negation
 		|{mod} factor module term;
 		
 	term = {literal} literal 
-		|{expression} left_parentheses declaration_constant* expression right_parentheses
+		|{block_expression} block_expression
 		|{call_function} call_function;
-		
-		
-	negation = minus term;
+			
+	negative_number = minus term;
 	
-	literal = {boolean}boolean_value
-		|{float}numeral_float
-		|{int}numeral_int;
+	literal = {boolean} boolean_value
+		|{float} numeral_float
+		|{int} numeral_int
+		|{identifier} identifier;
 		
-	boolean_value = {true}true
-		|{false}false;
+	boolean_value = {true} true
+		|{false} false;
 	
-	numeral_float = {float}float
-		|{cientific_notation}cientific_notation;
+	numeral_float = {float} float
+		|{cientific_notation} cientific_notation;
 		
 	numeral_int = {int_decimal}int_decimal
 		|{int_hexadecimal}int_hexadecimal;
 	
-	call_function = {call_function}identifier left_parentheses list_expressions? right_parentheses;
+	block_expression = left_parentheses declaration_constant* expression right_parentheses;
 	
-	list_expressions = {list_expressions}expression list_expressions_aux*;
+	declaration_constant = left_parentheses constant type identifier expression right_parentheses;
+	
+	call_function = identifier left_parentheses list_expressions? right_parentheses;
 		
-	list_expressions_aux = {list_expressions_aux}comma expression;
-	
-	declaration_constant = {declaration_constant}left_parentheses constant type identifier expression right_parentheses;
+	lambda = tk_lambda left_parentheses list_identifiers? right_parentheses colon term left_bracket list_expressions? right_bracket;
 		
-	lambda = tk_lambda left_parentheses list_identifiers? right_parentheses colon term left_bracket lambda_list_expressions? right_bracket;
+	list_identifiers = identifier list_identifiers_sequence*;
 	
-	lambda_list_expressions = expression lambda_list_expressions_auxiliar*;
+	list_identifiers_sequence = comma identifier;
 	
-	lambda_list_expressions_auxiliar = comma expression;
+	list_expressions = expression list_expressions_sequence*;
 		
-	list_identifiers = identifier list_identifiers_aux*;
+	list_expressions_sequence = comma expression;
 	
-	list_identifiers_aux = comma identifier;
+	if_then_else_statement = if_statement then term else_statement;
 	
-	if_statement = if_statement_exp_aux then term if_statement_else_aux;
+	if_statement = if term;
 	
-	if_statement_exp_aux = if term;
-	
-	if_statement_else_aux = else term;
+	else_statement = else term;
 	

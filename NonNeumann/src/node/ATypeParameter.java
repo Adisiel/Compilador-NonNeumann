@@ -5,50 +5,50 @@ package node;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AIfStatement extends PIfStatement
+public final class ATypeParameter extends PParameter
 {
-    private TIf _if_;
-    private PTerm _term_;
+    private PType _type_;
+    private TIdentifier _identifier_;
 
-    public AIfStatement()
+    public ATypeParameter()
     {
         // Constructor
     }
 
-    public AIfStatement(
-        @SuppressWarnings("hiding") TIf _if_,
-        @SuppressWarnings("hiding") PTerm _term_)
+    public ATypeParameter(
+        @SuppressWarnings("hiding") PType _type_,
+        @SuppressWarnings("hiding") TIdentifier _identifier_)
     {
         // Constructor
-        setIf(_if_);
+        setType(_type_);
 
-        setTerm(_term_);
+        setIdentifier(_identifier_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AIfStatement(
-            cloneNode(this._if_),
-            cloneNode(this._term_));
+        return new ATypeParameter(
+            cloneNode(this._type_),
+            cloneNode(this._identifier_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAIfStatement(this);
+        ((Analysis) sw).caseATypeParameter(this);
     }
 
-    public TIf getIf()
+    public PType getType()
     {
-        return this._if_;
+        return this._type_;
     }
 
-    public void setIf(TIf node)
+    public void setType(PType node)
     {
-        if(this._if_ != null)
+        if(this._type_ != null)
         {
-            this._if_.parent(null);
+            this._type_.parent(null);
         }
 
         if(node != null)
@@ -61,19 +61,19 @@ public final class AIfStatement extends PIfStatement
             node.parent(this);
         }
 
-        this._if_ = node;
+        this._type_ = node;
     }
 
-    public PTerm getTerm()
+    public TIdentifier getIdentifier()
     {
-        return this._term_;
+        return this._identifier_;
     }
 
-    public void setTerm(PTerm node)
+    public void setIdentifier(TIdentifier node)
     {
-        if(this._term_ != null)
+        if(this._identifier_ != null)
         {
-            this._term_.parent(null);
+            this._identifier_.parent(null);
         }
 
         if(node != null)
@@ -86,30 +86,30 @@ public final class AIfStatement extends PIfStatement
             node.parent(this);
         }
 
-        this._term_ = node;
+        this._identifier_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._if_)
-            + toString(this._term_);
+            + toString(this._type_)
+            + toString(this._identifier_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._if_ == child)
+        if(this._type_ == child)
         {
-            this._if_ = null;
+            this._type_ = null;
             return;
         }
 
-        if(this._term_ == child)
+        if(this._identifier_ == child)
         {
-            this._term_ = null;
+            this._identifier_ = null;
             return;
         }
 
@@ -120,15 +120,15 @@ public final class AIfStatement extends PIfStatement
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._if_ == oldChild)
+        if(this._type_ == oldChild)
         {
-            setIf((TIf) newChild);
+            setType((PType) newChild);
             return;
         }
 
-        if(this._term_ == oldChild)
+        if(this._identifier_ == oldChild)
         {
-            setTerm((PTerm) newChild);
+            setIdentifier((TIdentifier) newChild);
             return;
         }
 

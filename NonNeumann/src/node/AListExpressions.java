@@ -2,46 +2,42 @@
 
 package node;
 
+import java.util.*;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AOrExpression extends PExpression
+public final class AListExpressions extends PListExpressions
 {
     private PExpression _expression_;
-    private TOr _or_;
-    private POperation _operation_;
+    private final LinkedList<PListExpressionsSequence> _listExpressionsSequence_ = new LinkedList<PListExpressionsSequence>();
 
-    public AOrExpression()
+    public AListExpressions()
     {
         // Constructor
     }
 
-    public AOrExpression(
+    public AListExpressions(
         @SuppressWarnings("hiding") PExpression _expression_,
-        @SuppressWarnings("hiding") TOr _or_,
-        @SuppressWarnings("hiding") POperation _operation_)
+        @SuppressWarnings("hiding") List<PListExpressionsSequence> _listExpressionsSequence_)
     {
         // Constructor
         setExpression(_expression_);
 
-        setOr(_or_);
-
-        setOperation(_operation_);
+        setListExpressionsSequence(_listExpressionsSequence_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AOrExpression(
+        return new AListExpressions(
             cloneNode(this._expression_),
-            cloneNode(this._or_),
-            cloneNode(this._operation_));
+            cloneList(this._listExpressionsSequence_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAOrExpression(this);
+        ((Analysis) sw).caseAListExpressions(this);
     }
 
     public PExpression getExpression()
@@ -69,54 +65,24 @@ public final class AOrExpression extends PExpression
         this._expression_ = node;
     }
 
-    public TOr getOr()
+    public LinkedList<PListExpressionsSequence> getListExpressionsSequence()
     {
-        return this._or_;
+        return this._listExpressionsSequence_;
     }
 
-    public void setOr(TOr node)
+    public void setListExpressionsSequence(List<PListExpressionsSequence> list)
     {
-        if(this._or_ != null)
+        this._listExpressionsSequence_.clear();
+        this._listExpressionsSequence_.addAll(list);
+        for(PListExpressionsSequence e : list)
         {
-            this._or_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
+            if(e.parent() != null)
             {
-                node.parent().removeChild(node);
+                e.parent().removeChild(e);
             }
 
-            node.parent(this);
+            e.parent(this);
         }
-
-        this._or_ = node;
-    }
-
-    public POperation getOperation()
-    {
-        return this._operation_;
-    }
-
-    public void setOperation(POperation node)
-    {
-        if(this._operation_ != null)
-        {
-            this._operation_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._operation_ = node;
     }
 
     @Override
@@ -124,8 +90,7 @@ public final class AOrExpression extends PExpression
     {
         return ""
             + toString(this._expression_)
-            + toString(this._or_)
-            + toString(this._operation_);
+            + toString(this._listExpressionsSequence_);
     }
 
     @Override
@@ -138,15 +103,8 @@ public final class AOrExpression extends PExpression
             return;
         }
 
-        if(this._or_ == child)
+        if(this._listExpressionsSequence_.remove(child))
         {
-            this._or_ = null;
-            return;
-        }
-
-        if(this._operation_ == child)
-        {
-            this._operation_ = null;
             return;
         }
 
@@ -163,16 +121,22 @@ public final class AOrExpression extends PExpression
             return;
         }
 
-        if(this._or_ == oldChild)
+        for(ListIterator<PListExpressionsSequence> i = this._listExpressionsSequence_.listIterator(); i.hasNext();)
         {
-            setOr((TOr) newChild);
-            return;
-        }
+            if(i.next() == oldChild)
+            {
+                if(newChild != null)
+                {
+                    i.set((PListExpressionsSequence) newChild);
+                    newChild.parent(this);
+                    oldChild.parent(null);
+                    return;
+                }
 
-        if(this._operation_ == oldChild)
-        {
-            setOperation((POperation) newChild);
-            return;
+                i.remove();
+                oldChild.parent(null);
+                return;
+            }
         }
 
         throw new RuntimeException("Not a child.");

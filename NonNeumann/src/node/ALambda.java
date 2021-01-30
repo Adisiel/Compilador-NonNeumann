@@ -14,7 +14,7 @@ public final class ALambda extends PLambda
     private TColon _colon_;
     private PTerm _term_;
     private TLeftBracket _leftBracket_;
-    private PLambdaListExpressions _lambdaListExpressions_;
+    private PListExpressions _listExpressions_;
     private TRightBracket _rightBracket_;
 
     public ALambda()
@@ -30,7 +30,7 @@ public final class ALambda extends PLambda
         @SuppressWarnings("hiding") TColon _colon_,
         @SuppressWarnings("hiding") PTerm _term_,
         @SuppressWarnings("hiding") TLeftBracket _leftBracket_,
-        @SuppressWarnings("hiding") PLambdaListExpressions _lambdaListExpressions_,
+        @SuppressWarnings("hiding") PListExpressions _listExpressions_,
         @SuppressWarnings("hiding") TRightBracket _rightBracket_)
     {
         // Constructor
@@ -48,7 +48,7 @@ public final class ALambda extends PLambda
 
         setLeftBracket(_leftBracket_);
 
-        setLambdaListExpressions(_lambdaListExpressions_);
+        setListExpressions(_listExpressions_);
 
         setRightBracket(_rightBracket_);
 
@@ -65,7 +65,7 @@ public final class ALambda extends PLambda
             cloneNode(this._colon_),
             cloneNode(this._term_),
             cloneNode(this._leftBracket_),
-            cloneNode(this._lambdaListExpressions_),
+            cloneNode(this._listExpressions_),
             cloneNode(this._rightBracket_));
     }
 
@@ -249,16 +249,16 @@ public final class ALambda extends PLambda
         this._leftBracket_ = node;
     }
 
-    public PLambdaListExpressions getLambdaListExpressions()
+    public PListExpressions getListExpressions()
     {
-        return this._lambdaListExpressions_;
+        return this._listExpressions_;
     }
 
-    public void setLambdaListExpressions(PLambdaListExpressions node)
+    public void setListExpressions(PListExpressions node)
     {
-        if(this._lambdaListExpressions_ != null)
+        if(this._listExpressions_ != null)
         {
-            this._lambdaListExpressions_.parent(null);
+            this._listExpressions_.parent(null);
         }
 
         if(node != null)
@@ -271,7 +271,7 @@ public final class ALambda extends PLambda
             node.parent(this);
         }
 
-        this._lambdaListExpressions_ = node;
+        this._listExpressions_ = node;
     }
 
     public TRightBracket getRightBracket()
@@ -310,7 +310,7 @@ public final class ALambda extends PLambda
             + toString(this._colon_)
             + toString(this._term_)
             + toString(this._leftBracket_)
-            + toString(this._lambdaListExpressions_)
+            + toString(this._listExpressions_)
             + toString(this._rightBracket_);
     }
 
@@ -360,9 +360,9 @@ public final class ALambda extends PLambda
             return;
         }
 
-        if(this._lambdaListExpressions_ == child)
+        if(this._listExpressions_ == child)
         {
-            this._lambdaListExpressions_ = null;
+            this._listExpressions_ = null;
             return;
         }
 
@@ -421,9 +421,9 @@ public final class ALambda extends PLambda
             return;
         }
 
-        if(this._lambdaListExpressions_ == oldChild)
+        if(this._listExpressions_ == oldChild)
         {
-            setLambdaListExpressions((PLambdaListExpressions) newChild);
+            setListExpressions((PListExpressions) newChild);
             return;
         }
 

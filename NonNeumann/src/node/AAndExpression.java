@@ -9,7 +9,7 @@ public final class AAndExpression extends PExpression
 {
     private PExpression _expression_;
     private TAnd _and_;
-    private POp _op_;
+    private POperation _operation_;
 
     public AAndExpression()
     {
@@ -19,14 +19,14 @@ public final class AAndExpression extends PExpression
     public AAndExpression(
         @SuppressWarnings("hiding") PExpression _expression_,
         @SuppressWarnings("hiding") TAnd _and_,
-        @SuppressWarnings("hiding") POp _op_)
+        @SuppressWarnings("hiding") POperation _operation_)
     {
         // Constructor
         setExpression(_expression_);
 
         setAnd(_and_);
 
-        setOp(_op_);
+        setOperation(_operation_);
 
     }
 
@@ -36,7 +36,7 @@ public final class AAndExpression extends PExpression
         return new AAndExpression(
             cloneNode(this._expression_),
             cloneNode(this._and_),
-            cloneNode(this._op_));
+            cloneNode(this._operation_));
     }
 
     public void apply(Switch sw)
@@ -94,16 +94,16 @@ public final class AAndExpression extends PExpression
         this._and_ = node;
     }
 
-    public POp getOp()
+    public POperation getOperation()
     {
-        return this._op_;
+        return this._operation_;
     }
 
-    public void setOp(POp node)
+    public void setOperation(POperation node)
     {
-        if(this._op_ != null)
+        if(this._operation_ != null)
         {
-            this._op_.parent(null);
+            this._operation_.parent(null);
         }
 
         if(node != null)
@@ -116,7 +116,7 @@ public final class AAndExpression extends PExpression
             node.parent(this);
         }
 
-        this._op_ = node;
+        this._operation_ = node;
     }
 
     @Override
@@ -125,7 +125,7 @@ public final class AAndExpression extends PExpression
         return ""
             + toString(this._expression_)
             + toString(this._and_)
-            + toString(this._op_);
+            + toString(this._operation_);
     }
 
     @Override
@@ -144,9 +144,9 @@ public final class AAndExpression extends PExpression
             return;
         }
 
-        if(this._op_ == child)
+        if(this._operation_ == child)
         {
-            this._op_ = null;
+            this._operation_ = null;
             return;
         }
 
@@ -169,9 +169,9 @@ public final class AAndExpression extends PExpression
             return;
         }
 
-        if(this._op_ == oldChild)
+        if(this._operation_ == oldChild)
         {
-            setOp((POp) newChild);
+            setOperation((POperation) newChild);
             return;
         }
 

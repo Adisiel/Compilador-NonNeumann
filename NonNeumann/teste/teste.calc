@@ -1,17 +1,18 @@
-(function bool isOdd(int number):(!isEven(number())))
+( function int max (int x, int y) : 
+	(
+		if (x > y) then x else y
+	)
+)
 
-(function bool isEven(int number):(number() % 2 = 0))
+( function int apply_operator (int x, int y, int op(int,int)) : 
+	(
+		op(x, y) 
+	) 
+)
 
-(function bool isOdd(int number):(isEven(number())+ isEven(number())))
-
-(function bool isEven(int print(int), int n):(print(n())))
-
-(
-	function bool isEven(int number):(
-		(
-(const int pi (lambda (x,y) : (x()*y()) [2,7]))
-			
-			5
-		)
+entry 
+( function int principal () : 
+	(
+		apply_operator(7, 5, max) 
 	)
 )
