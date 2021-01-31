@@ -69,292 +69,252 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAProgram(AProgram node)
+    public void caseAAProgram(AAProgram node)
     {
         defaultCase(node);
     }
 
-    public void caseAFunctionDescription(AFunctionDescription node)
+    public void caseAAFunctionDescription(AAFunctionDescription node)
     {
         defaultCase(node);
     }
 
-    public void caseAFunctionParameters(AFunctionParameters node)
+    public void caseAAFunctionParameters(AAFunctionParameters node)
     {
         defaultCase(node);
     }
 
-    public void caseAFunctionExpression(AFunctionExpression node)
+    public void caseAAFunctionExpression(AAFunctionExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAIntType(AIntType node)
+    public void caseAAIntAType(AAIntAType node)
     {
         defaultCase(node);
     }
 
-    public void caseARealType(ARealType node)
+    public void caseAARealAType(AARealAType node)
     {
         defaultCase(node);
     }
 
-    public void caseABoolType(ABoolType node)
+    public void caseAABoolAType(AABoolAType node)
     {
         defaultCase(node);
     }
 
-    public void caseAParameters(AParameters node)
+    public void caseAAParameters(AAParameters node)
     {
         defaultCase(node);
     }
 
-    public void caseAParametersSequence(AParametersSequence node)
+    public void caseAAParametersSequence(AAParametersSequence node)
     {
         defaultCase(node);
     }
 
-    public void caseATypeParameter(ATypeParameter node)
+    public void caseAAParameterAParameter(AAParameterAParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAAssignFunctionParameter(AAssignFunctionParameter node)
+    public void caseAAAssignFunctionAParameter(AAAssignFunctionAParameter node)
     {
         defaultCase(node);
     }
 
-    public void caseAAssignFunction(AAssignFunction node)
+    public void caseAAAssignFunction(AAAssignFunction node)
     {
         defaultCase(node);
     }
 
-    public void caseAParametersAssign(AParametersAssign node)
+    public void caseAAParametersAssign(AAParametersAssign node)
     {
         defaultCase(node);
     }
 
-    public void caseAParametersAssignSequence(AParametersAssignSequence node)
+    public void caseAAParametersAssignSequence(AAParametersAssignSequence node)
     {
         defaultCase(node);
     }
 
-    public void caseATypeParameterAssign(ATypeParameterAssign node)
+    public void caseAAParameterAssignAParameterAssign(AAParameterAssignAParameterAssign node)
     {
         defaultCase(node);
     }
 
-    public void caseAAssignFunctionParameterAssign(AAssignFunctionParameterAssign node)
+    public void caseAAAssignFunctionAParameterAssign(AAAssignFunctionAParameterAssign node)
     {
         defaultCase(node);
     }
 
-    public void caseAOperationExpression(AOperationExpression node)
+    public void caseAAIfThenElseStatementAExpression(AAIfThenElseStatementAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAGtExpression(AGtExpression node)
+    public void caseAACallFunctionAExpression(AACallFunctionAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseALtExpression(ALtExpression node)
+    public void caseAABlockExpressionAExpression(AABlockExpressionAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAEqualExpression(AEqualExpression node)
+    public void caseAALambdaAExpression(AALambdaAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseANegationExpression(ANegationExpression node)
+    public void caseAABiggerAExpression(AABiggerAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAOrExpression(AOrExpression node)
+    public void caseAAMinorAExpression(AAMinorAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAAndExpression(AAndExpression node)
+    public void caseAAEqualAExpression(AAEqualAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAIfThenElseStatementExpression(AIfThenElseStatementExpression node)
+    public void caseAANegationAExpression(AANegationAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseALambdaExpression(ALambdaExpression node)
+    public void caseAAOrAExpression(AAOrAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAFactorOperation(AFactorOperation node)
+    public void caseAAAndAExpression(AAAndAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAPlusOperation(APlusOperation node)
+    public void caseAAPlusAExpression(AAPlusAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAMinusOperation(AMinusOperation node)
+    public void caseAAMinusAExpression(AAMinusAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseATermFactor(ATermFactor node)
+    public void caseAAMultAExpression(AAMultAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseANegativeNumberFactor(ANegativeNumberFactor node)
+    public void caseAADivAExpression(AADivAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAMultFactor(AMultFactor node)
+    public void caseAAModAExpression(AAModAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseADivFactor(ADivFactor node)
+    public void caseAANegativeNumberAExpression(AANegativeNumberAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAModFactor(AModFactor node)
+    public void caseAATrueAExpression(AATrueAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseALiteralTerm(ALiteralTerm node)
+    public void caseAAFalseAExpression(AAFalseAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseABlockExpressionTerm(ABlockExpressionTerm node)
+    public void caseAAIntDecimalAExpression(AAIntDecimalAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseACallFunctionTerm(ACallFunctionTerm node)
+    public void caseAAIntHexadecimalAExpression(AAIntHexadecimalAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseANegativeNumber(ANegativeNumber node)
+    public void caseAAFloatAExpression(AAFloatAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseABooleanLiteral(ABooleanLiteral node)
+    public void caseAACientificNotationAExpression(AACientificNotationAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAFloatLiteral(AFloatLiteral node)
+    public void caseAAIdentifierAExpression(AAIdentifierAExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAIntLiteral(AIntLiteral node)
+    public void caseAABlockExpression(AABlockExpression node)
     {
         defaultCase(node);
     }
 
-    public void caseAIdentifierLiteral(AIdentifierLiteral node)
+    public void caseAADeclarationConstant(AADeclarationConstant node)
     {
         defaultCase(node);
     }
 
-    public void caseATrueBooleanValue(ATrueBooleanValue node)
+    public void caseAACallFunction(AACallFunction node)
     {
         defaultCase(node);
     }
 
-    public void caseAFalseBooleanValue(AFalseBooleanValue node)
+    public void caseAALambda(AALambda node)
     {
         defaultCase(node);
     }
 
-    public void caseAFloatNumeralFloat(AFloatNumeralFloat node)
+    public void caseAAListIdentifiers(AAListIdentifiers node)
     {
         defaultCase(node);
     }
 
-    public void caseACientificNotationNumeralFloat(ACientificNotationNumeralFloat node)
+    public void caseAAIdentifierAListIdentifiersSequence(AAIdentifierAListIdentifiersSequence node)
     {
         defaultCase(node);
     }
 
-    public void caseAIntDecimalNumeralInt(AIntDecimalNumeralInt node)
+    public void caseAAListExpressions(AAListExpressions node)
     {
         defaultCase(node);
     }
 
-    public void caseAIntHexadecimalNumeralInt(AIntHexadecimalNumeralInt node)
+    public void caseAAListExpressionsSequence(AAListExpressionsSequence node)
     {
         defaultCase(node);
     }
 
-    public void caseABlockExpression(ABlockExpression node)
+    public void caseAAIfThenElseStatement(AAIfThenElseStatement node)
     {
         defaultCase(node);
     }
 
-    public void caseADeclarationConstant(ADeclarationConstant node)
+    public void caseAAIfStatement(AAIfStatement node)
     {
         defaultCase(node);
     }
 
-    public void caseACallFunction(ACallFunction node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseALambda(ALambda node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAListIdentifiers(AListIdentifiers node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAListIdentifiersSequence(AListIdentifiersSequence node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAListExpressions(AListExpressions node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAListExpressionsSequence(AListExpressionsSequence node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAIfThenElseStatement(AIfThenElseStatement node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAIfStatement(AIfStatement node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAElseStatement(AElseStatement node)
+    public void caseAAElseStatement(AAElseStatement node)
     {
         defaultCase(node);
     }

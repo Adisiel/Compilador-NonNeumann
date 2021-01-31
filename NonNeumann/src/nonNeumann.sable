@@ -65,93 +65,188 @@ block_comment;
 
 Productions 
 
-	program = function_description+;
+	program {->a_program}= function_description+ 
+	{->New a_program([function_description.a_function_description])};
 	
-	function_description = entry? left_parentheses function type identifier function_parameters colon function_expression right_parentheses;
+	function_description {->a_function_description} = entry? left_parentheses function type identifier function_parameters colon function_expression right_parentheses 
+	{->New a_function_description(type.a_type, function_parameters.a_function_parameters, function_expression.a_function_expression)};
 	
-	function_parameters = left_parentheses parameters* right_parentheses;
+	function_parameters {->a_function_parameters} = left_parentheses parameters* right_parentheses 
+	{->New a_function_parameters([parameters.a_parameters])};
 	
-	function_expression = left_parentheses expression right_parentheses;
+	function_expression {->a_function_expression}= left_parentheses expression right_parentheses
+	{->New a_function_expression(expression.a_expression)};
 	
-	type = {int} int
-		|{real} real
-		|{bool} bool;
+	type {->a_type} = {int} int {->New a_type.a_int(int)}
+		|{real} real  {->New a_type.a_real(real)}
+		|{bool} bool  {->New a_type.a_bool(bool)};
 		
-	parameters = parameter parameters_sequence*;
+	parameters {->a_parameters}= parameter parameters_sequence* 
+	{->New a_parameters(parameter.a_parameter, [parameters_sequence.a_parameters_sequence])};
 	
-	parameters_sequence = comma parameter;
+	parameters_sequence {->a_parameters_sequence} = comma parameter 
+	{->New a_parameters_sequence(parameter.a_parameter)};
 	
-	parameter = {type} type identifier
-		|{assign_function} assign_function;
+	parameter {->a_parameter}= {a_parameter} type identifier {->New a_parameter.a_parameter(type.a_type)}
+		|{assign_function} assign_function {->New a_parameter.a_assign_function(assign_function.a_assign_function)};
 		
-	assign_function = type identifier left_parentheses parameters_assign? right_parentheses;
+	assign_function {->a_assign_function} = type identifier left_parentheses parameters_assign? right_parentheses
+	{->New a_assign_function(type.a_type, parameters_assign.a_parameters_assign)};
 	
-	parameters_assign = parameter_assign parameters_assign_sequence*;
+	parameters_assign {->a_parameters_assign} = parameter_assign parameters_assign_sequence* 
+	{->New a_parameters_assign(parameter_assign.a_parameter_assign, [parameters_assign_sequence.a_parameters_assign_sequence])};
 	
-	parameters_assign_sequence = comma parameter_assign;
+	parameters_assign_sequence {->a_parameters_assign_sequence} = comma parameter_assign 
+	{->New a_parameters_assign_sequence(parameter_assign.a_parameter_assign)};
 	
-	parameter_assign = {type} type
-		|{assign_function} assign_function;
+	parameter_assign {->a_parameter_assign}= {type} type {->New a_parameter_assign.a_parameter_assign(type.a_type)}
+		|{assign_function} assign_function {->New a_parameter_assign.a_assign_function(assign_function.a_assign_function)};
 		
-	expression = {operation} operation
-		|{gt} expression bigger operation
-		|{lt} expression minor operation
-		|{equal} expression equal operation
-		|{negation} exclamation operation
-		|{or} expression or operation
-		|{and} expression and operation
-		|{if_then_else_statement} if_then_else_statement
-		|{lambda} lambda;
+	expression {->a_expression} = {operation} operation {-> operation.a_expression}
+		|{bigger} [left]:expression bigger [right]:operation {-> New a_expression.a_bigger(left.a_expression, right.a_expression)}
+		|{minor} [left]:expression minor [right]:operation {-> New a_expression.a_minor(left.a_expression, right.a_expression)}
+		|{equal} [left]:expression equal [right]:operation {-> New a_expression.a_equal(left.a_expression, right.a_expression)}
+		|{negation} exclamation [right]:operation {-> New a_expression.a_negation(right.a_expression)}
+		|{or} [left]:expression or [right]:operation {-> New a_expression.a_or(left.a_expression, right.a_expression)}
+		|{and} [left]:expression and [right]:operation {-> New a_expression.a_and(left.a_expression, right.a_expression)}
+		|{if_then_else_statement} if_then_else_statement {-> New a_expression.a_if_then_else_statement(if_then_else_statement.a_if_then_else_statement)}
+		|{lambda} lambda {->New a_expression.a_lambda (lambda.a_lambda)}; 
 
-	operation = {factor} factor
-		|{plus} operation plus factor
-  		|{minus} operation minus factor;
+	operation {->a_expression} = {factor} factor {-> factor.a_expression}
+		|{plus} [left]:operation plus [right]:factor {-> New a_expression.a_plus(left.a_expression, right.a_expression)}
+  		|{minus} [left]:operation minus [right]:factor {-> New a_expression.a_minus(left.a_expression, right.a_expression)}; 
 			
-	factor = {term} term
-		|{negative_number} negative_number
-		|{mult} factor product term
-		|{div} factor divide term
-		|{mod} factor module term;
+	factor {->a_expression} = {term} term {-> term.a_expression}
+		|{negative_number} negative_number {-> negative_number.a_expression}
+		|{mult} [left]:factor product [right]:term {-> New a_expression.a_mult(left.a_expression, right.a_expression)}
+		|{div} [left]:factor divide [right]:term {-> New a_expression.a_div(left.a_expression, right.a_expression)}
+		|{mod} [left]:factor module [right]:term  {-> New a_expression.a_mod(left.a_expression, right.a_expression)};
 		
-	term = {literal} literal 
-		|{block_expression} block_expression
-		|{call_function} call_function;
+	term {->a_expression} = {literal} literal {-> literal.a_expression}
+		|{block_expression} block_expression {->New a_expression.a_block_expression(block_expression.a_block_expression)}
+		|{call_function} call_function {->New a_expression.a_call_function(call_function.a_call_function)}; 
 			
-	negative_number = minus term;
+	negative_number {->a_expression} = minus [right]:term {-> New a_expression.a_negative_number(right.a_expression)}; 
 	
-	literal = {boolean} boolean_value
-		|{float} numeral_float
-		|{int} numeral_int
-		|{identifier} identifier;
+	literal {->a_expression} = {boolean} boolean_value {-> boolean_value.a_expression}
+		|{float} numeral_float {-> numeral_float.a_expression}
+		|{int} numeral_int {-> numeral_int.a_expression}
+		|{identifier} identifier {-> New a_expression.a_identifier(identifier)}; 
 		
-	boolean_value = {true} true
-		|{false} false;
+	boolean_value {->a_expression} = {true} true {-> New a_expression.a_true(true)} 
+		|{false} false {-> New a_expression.a_false(false)}; 
 	
-	numeral_float = {float} float
-		|{cientific_notation} cientific_notation;
+	numeral_float {->a_expression} = {float} float {-> New a_expression.a_float(float)} 
+		|{cientific_notation} cientific_notation {-> New a_expression.a_cientific_notation(cientific_notation)} ; 
 		
-	numeral_int = {int_decimal}int_decimal
-		|{int_hexadecimal}int_hexadecimal;
+	numeral_int {->a_expression} = {int_decimal} int_decimal {-> New a_expression.a_int_decimal(int_decimal)} 
+		|{int_hexadecimal} int_hexadecimal {-> New a_expression.a_int_hexadecimal(int_hexadecimal)}; 		
+ 	
+	block_expression {->a_block_expression} = left_parentheses declaration_constant* expression right_parentheses
+	{->New a_block_expression([declaration_constant.a_declaration_constant], expression.a_expression)};
 	
-	block_expression = left_parentheses declaration_constant* expression right_parentheses;
+	declaration_constant {->a_declaration_constant} = left_parentheses constant type identifier expression right_parentheses
+	{->New a_declaration_constant(type.a_type, expression.a_expression)};
 	
-	declaration_constant = left_parentheses constant type identifier expression right_parentheses;
-	
-	call_function = identifier left_parentheses list_expressions? right_parentheses;
+	call_function {->a_call_function} = identifier left_parentheses list_expressions? right_parentheses
+	{->New a_call_function(list_expressions.a_list_expressions)};
 		
-	lambda = tk_lambda left_parentheses list_identifiers? right_parentheses colon term left_bracket list_expressions? right_bracket;
+	lambda {->a_lambda} = tk_lambda left_parentheses list_identifiers? right_parentheses colon term left_bracket list_expressions? right_bracket
+	{->New a_lambda(list_identifiers.a_list_identifiers, list_expressions.a_list_expressions)};
 		
-	list_identifiers = identifier list_identifiers_sequence*;
+	list_identifiers {->a_list_identifiers} = identifier list_identifiers_sequence*
+	{->New a_list_identifiers([list_identifiers_sequence.a_list_identifiers_sequence])};
 	
-	list_identifiers_sequence = comma identifier;
+	list_identifiers_sequence {->a_list_identifiers_sequence} = comma identifier 
+	{->New a_list_identifiers_sequence.a_identifier(comma, identifier)};
 	
-	list_expressions = expression list_expressions_sequence*;
+	list_expressions {->a_list_expressions} = expression list_expressions_sequence*
+	{->New a_list_expressions(expression.a_expression, [list_expressions_sequence.a_list_expressions_sequence])};
 		
-	list_expressions_sequence = comma expression;
+	list_expressions_sequence {->a_list_expressions_sequence} = comma expression 
+	{->New a_list_expressions_sequence(expression.a_expression)};
 	
-	if_then_else_statement = if_statement then term else_statement;
+	if_then_else_statement {->a_if_then_else_statement} = if_statement then term else_statement
+	{->New a_if_then_else_statement(if_statement.a_if_statement, term.a_expression, else_statement.a_else_statement)};
 	
-	if_statement = if term;
+	if_statement {->a_if_statement} = if term
+	{->New a_if_statement(term.a_expression)};
 	
-	else_statement = else term;
+	else_statement {->a_else_statement} = else term
+	{->New a_else_statement(term.a_expression)};
 	
+Abstract Syntax Tree
+
+a_program = a_function_description+;
+
+a_function_description = a_type a_function_parameters a_function_expression;
+
+a_function_parameters = a_parameters*;
+
+a_function_expression = a_expression;
+
+a_type = {a_int} int
+      	|{a_real} real
+		|{a_bool} bool;
+		
+a_parameters = a_parameter a_parameters_sequence*;
+
+a_parameters_sequence = a_parameter;
+
+a_parameter = {a_parameter} a_type
+			|{a_assign_function} a_assign_function;
+
+a_assign_function = a_type a_parameters_assign?;
+
+a_parameters_assign = a_parameter_assign a_parameters_assign_sequence*;
+
+a_parameters_assign_sequence = a_parameter_assign;
+
+a_parameter_assign = {a_parameter_assign} a_type
+					| {a_assign_function} a_assign_function;
+		
+a_expression =  {a_if_then_else_statement} a_if_then_else_statement
+		|{a_call_function} a_call_function
+		|{a_block_expression} a_block_expression
+		|{a_lambda} a_lambda
+		|{a_bigger} [left]:a_expression [right]:a_expression
+		|{a_minor} [left]:a_expression [right]:a_expression 
+		|{a_equal} [left]:a_expression [right]:a_expression 
+		|{a_negation} [right]:a_expression 
+		|{a_or} [left]:a_expression [right]:a_expression 
+		|{a_and} [left]:a_expression [right]:a_expression 
+		|{a_plus} [left]:a_expression [right]:a_expression 
+  		|{a_minus} [left]:a_expression [right]:a_expression
+		|{a_mult} [left]:a_expression [right]:a_expression 
+		|{a_div} [left]:a_expression [right]:a_expression 
+		|{a_mod} [left]:a_expression [right]:a_expression 
+		|{a_negative_number} [right]:a_expression
+		|{a_true} true
+		|{a_false} false
+		|{a_int_decimal} int_decimal
+		|{a_int_hexadecimal} int_hexadecimal
+		|{a_float} float
+		|{a_cientific_notation} cientific_notation
+		|{a_identifier} identifier;
+
+a_block_expression = a_declaration_constant* a_expression;
+
+a_declaration_constant = a_type a_expression;
+
+a_call_function = a_list_expressions?;
+
+a_lambda = a_list_identifiers? a_list_expressions?;
+
+a_list_identifiers = a_list_identifiers_sequence*;
+
+a_list_identifiers_sequence = {a_identifier} comma identifier;
+
+a_list_expressions = a_expression a_list_expressions_sequence*;
+
+a_list_expressions_sequence = a_expression;
+
+a_if_then_else_statement = a_if_statement a_expression a_else_statement;
+
+a_if_statement = a_expression;
+
+a_else_statement = a_expression;

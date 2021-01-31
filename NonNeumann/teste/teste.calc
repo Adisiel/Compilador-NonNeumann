@@ -1,3 +1,107 @@
+{-Área de um círculo-}
+
+(function real circle_area(real x): 
+	(
+		(
+			(
+				const real pi (3.14)
+			)
+			pi * (lambda(x): (x * x)[])
+		)
+	)
+)
+
+entry 
+(function real main(): 
+	(
+		circle_area(5E2)
+	)
+)
+
+
+{-Cálculo da média entre três valores-}
+
+(function real sum(real x, real y): 
+	(
+		x + y
+	)
+)
+
+(function real mean_three_values(int x, int y, int z, int operation(real, real)): 
+	(
+		operation(operation(x, y), z) / 3
+	)
+)
+
+entry 
+(function real principal(): 
+	(
+		mean_three_values(3, 4, 5, sum)
+	)
+)
+
+
+{-Função aleatória-}
+
+(function bool crazy_function (int x, int y) : 
+	(
+		if (((x % y) > y) or (y > x)) then x else y
+	)
+)
+
+(function bool crazy_operation (int x, int y, bool operation(int,int) ) : 
+		(
+			operation(x, y) + (lambda (a,b) : (a*b) [7, 3])
+		)
+)
+
+entry
+(function bool principal () : 
+	(
+		crazy_operation(10, 5E-3, crazy_function)
+	)
+)
+
+entry 
+(function bool main () : 
+	(
+		isAprovado(5.2, 8.5, 4.0) 
+	)
+)
+
+(function bool isOdd(int number):
+	(
+		!isEven(number)
+	)
+)
+
+(function bool isEven(int number):
+	(
+		number % 2 = 0
+	)
+)
+
+(function bool isOdd(int number):
+	(
+		isEven(number) + isEven(number)
+	)
+)
+
+(function bool isEven(int print(int), int n):
+	(
+		print(n)
+	)
+)
+
+(
+	function bool isEven(int number):(
+		(
+			(const int pi (lambda (x,y) : (x()*y()) [2,7]))
+			if(!(media(a(), b, c) > media_min)) then true else false
+		)
+	)
+)
+
 ( function int max (int x, int y) : 
 	(
 		if (x > y) then x else y
