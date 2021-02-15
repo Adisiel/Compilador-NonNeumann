@@ -114,7 +114,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAAParameterAParameter(AAParameterAParameter node)
+    public void caseAAVariableAParameter(AAVariableAParameter node)
     {
         defaultCase(node);
     }
@@ -139,7 +139,7 @@ public class AnalysisAdapter implements Analysis
         defaultCase(node);
     }
 
-    public void caseAAParameterAssignAParameterAssign(AAParameterAssignAParameterAssign node)
+    public void caseAAVariableAParameterAssign(AAVariableAParameterAssign node)
     {
         defaultCase(node);
     }
@@ -300,21 +300,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     public void caseAAListExpressionsSequence(AAListExpressionsSequence node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAAIfThenElseStatement(AAIfThenElseStatement node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAAIfStatement(AAIfStatement node)
-    {
-        defaultCase(node);
-    }
-
-    public void caseAAElseStatement(AAElseStatement node)
     {
         defaultCase(node);
     }

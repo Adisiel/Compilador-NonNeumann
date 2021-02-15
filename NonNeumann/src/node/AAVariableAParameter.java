@@ -5,33 +5,38 @@ package node;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAParameterAParameter extends PAParameter
+public final class AAVariableAParameter extends PAParameter
 {
     private PAType _aType_;
+    private TIdentifier _identifier_;
 
-    public AAParameterAParameter()
+    public AAVariableAParameter()
     {
         // Constructor
     }
 
-    public AAParameterAParameter(
-        @SuppressWarnings("hiding") PAType _aType_)
+    public AAVariableAParameter(
+        @SuppressWarnings("hiding") PAType _aType_,
+        @SuppressWarnings("hiding") TIdentifier _identifier_)
     {
         // Constructor
         setAType(_aType_);
+
+        setIdentifier(_identifier_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAParameterAParameter(
-            cloneNode(this._aType_));
+        return new AAVariableAParameter(
+            cloneNode(this._aType_),
+            cloneNode(this._identifier_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAParameterAParameter(this);
+        ((Analysis) sw).caseAAVariableAParameter(this);
     }
 
     public PAType getAType()
@@ -59,11 +64,37 @@ public final class AAParameterAParameter extends PAParameter
         this._aType_ = node;
     }
 
+    public TIdentifier getIdentifier()
+    {
+        return this._identifier_;
+    }
+
+    public void setIdentifier(TIdentifier node)
+    {
+        if(this._identifier_ != null)
+        {
+            this._identifier_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._identifier_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
-            + toString(this._aType_);
+            + toString(this._aType_)
+            + toString(this._identifier_);
     }
 
     @Override
@@ -73,6 +104,12 @@ public final class AAParameterAParameter extends PAParameter
         if(this._aType_ == child)
         {
             this._aType_ = null;
+            return;
+        }
+
+        if(this._identifier_ == child)
+        {
+            this._identifier_ = null;
             return;
         }
 
@@ -86,6 +123,12 @@ public final class AAParameterAParameter extends PAParameter
         if(this._aType_ == oldChild)
         {
             setAType((PAType) newChild);
+            return;
+        }
+
+        if(this._identifier_ == oldChild)
+        {
+            setIdentifier((TIdentifier) newChild);
             return;
         }
 

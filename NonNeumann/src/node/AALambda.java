@@ -8,6 +8,7 @@ import analysis.*;
 public final class AALambda extends PALambda
 {
     private PAListIdentifiers _aListIdentifiers_;
+    private PAExpression _aExpression_;
     private PAListExpressions _aListExpressions_;
 
     public AALambda()
@@ -17,10 +18,13 @@ public final class AALambda extends PALambda
 
     public AALambda(
         @SuppressWarnings("hiding") PAListIdentifiers _aListIdentifiers_,
+        @SuppressWarnings("hiding") PAExpression _aExpression_,
         @SuppressWarnings("hiding") PAListExpressions _aListExpressions_)
     {
         // Constructor
         setAListIdentifiers(_aListIdentifiers_);
+
+        setAExpression(_aExpression_);
 
         setAListExpressions(_aListExpressions_);
 
@@ -31,6 +35,7 @@ public final class AALambda extends PALambda
     {
         return new AALambda(
             cloneNode(this._aListIdentifiers_),
+            cloneNode(this._aExpression_),
             cloneNode(this._aListExpressions_));
     }
 
@@ -64,6 +69,31 @@ public final class AALambda extends PALambda
         this._aListIdentifiers_ = node;
     }
 
+    public PAExpression getAExpression()
+    {
+        return this._aExpression_;
+    }
+
+    public void setAExpression(PAExpression node)
+    {
+        if(this._aExpression_ != null)
+        {
+            this._aExpression_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._aExpression_ = node;
+    }
+
     public PAListExpressions getAListExpressions()
     {
         return this._aListExpressions_;
@@ -94,6 +124,7 @@ public final class AALambda extends PALambda
     {
         return ""
             + toString(this._aListIdentifiers_)
+            + toString(this._aExpression_)
             + toString(this._aListExpressions_);
     }
 
@@ -104,6 +135,12 @@ public final class AALambda extends PALambda
         if(this._aListIdentifiers_ == child)
         {
             this._aListIdentifiers_ = null;
+            return;
+        }
+
+        if(this._aExpression_ == child)
+        {
+            this._aExpression_ = null;
             return;
         }
 
@@ -123,6 +160,12 @@ public final class AALambda extends PALambda
         if(this._aListIdentifiers_ == oldChild)
         {
             setAListIdentifiers((PAListIdentifiers) newChild);
+            return;
+        }
+
+        if(this._aExpression_ == oldChild)
+        {
+            setAExpression((PAExpression) newChild);
             return;
         }
 

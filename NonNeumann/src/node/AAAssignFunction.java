@@ -8,6 +8,7 @@ import analysis.*;
 public final class AAAssignFunction extends PAAssignFunction
 {
     private PAType _aType_;
+    private TIdentifier _identifier_;
     private PAParametersAssign _aParametersAssign_;
 
     public AAAssignFunction()
@@ -17,10 +18,13 @@ public final class AAAssignFunction extends PAAssignFunction
 
     public AAAssignFunction(
         @SuppressWarnings("hiding") PAType _aType_,
+        @SuppressWarnings("hiding") TIdentifier _identifier_,
         @SuppressWarnings("hiding") PAParametersAssign _aParametersAssign_)
     {
         // Constructor
         setAType(_aType_);
+
+        setIdentifier(_identifier_);
 
         setAParametersAssign(_aParametersAssign_);
 
@@ -31,6 +35,7 @@ public final class AAAssignFunction extends PAAssignFunction
     {
         return new AAAssignFunction(
             cloneNode(this._aType_),
+            cloneNode(this._identifier_),
             cloneNode(this._aParametersAssign_));
     }
 
@@ -64,6 +69,31 @@ public final class AAAssignFunction extends PAAssignFunction
         this._aType_ = node;
     }
 
+    public TIdentifier getIdentifier()
+    {
+        return this._identifier_;
+    }
+
+    public void setIdentifier(TIdentifier node)
+    {
+        if(this._identifier_ != null)
+        {
+            this._identifier_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._identifier_ = node;
+    }
+
     public PAParametersAssign getAParametersAssign()
     {
         return this._aParametersAssign_;
@@ -94,6 +124,7 @@ public final class AAAssignFunction extends PAAssignFunction
     {
         return ""
             + toString(this._aType_)
+            + toString(this._identifier_)
             + toString(this._aParametersAssign_);
     }
 
@@ -104,6 +135,12 @@ public final class AAAssignFunction extends PAAssignFunction
         if(this._aType_ == child)
         {
             this._aType_ = null;
+            return;
+        }
+
+        if(this._identifier_ == child)
+        {
+            this._identifier_ = null;
             return;
         }
 
@@ -123,6 +160,12 @@ public final class AAAssignFunction extends PAAssignFunction
         if(this._aType_ == oldChild)
         {
             setAType((PAType) newChild);
+            return;
+        }
+
+        if(this._identifier_ == oldChild)
+        {
+            setIdentifier((TIdentifier) newChild);
             return;
         }
 

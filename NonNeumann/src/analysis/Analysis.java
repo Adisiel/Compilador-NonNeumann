@@ -21,12 +21,12 @@ public interface Analysis extends Switch
     void caseAABoolAType(AABoolAType node);
     void caseAAParameters(AAParameters node);
     void caseAAParametersSequence(AAParametersSequence node);
-    void caseAAParameterAParameter(AAParameterAParameter node);
+    void caseAAVariableAParameter(AAVariableAParameter node);
     void caseAAAssignFunctionAParameter(AAAssignFunctionAParameter node);
     void caseAAAssignFunction(AAAssignFunction node);
     void caseAAParametersAssign(AAParametersAssign node);
     void caseAAParametersAssignSequence(AAParametersAssignSequence node);
-    void caseAAParameterAssignAParameterAssign(AAParameterAssignAParameterAssign node);
+    void caseAAVariableAParameterAssign(AAVariableAParameterAssign node);
     void caseAAAssignFunctionAParameterAssign(AAAssignFunctionAParameterAssign node);
     void caseAAIfThenElseStatementAExpression(AAIfThenElseStatementAExpression node);
     void caseAACallFunctionAExpression(AACallFunctionAExpression node);
@@ -59,9 +59,6 @@ public interface Analysis extends Switch
     void caseAAIdentifierAListIdentifiersSequence(AAIdentifierAListIdentifiersSequence node);
     void caseAAListExpressions(AAListExpressions node);
     void caseAAListExpressionsSequence(AAListExpressionsSequence node);
-    void caseAAIfThenElseStatement(AAIfThenElseStatement node);
-    void caseAAIfStatement(AAIfStatement node);
-    void caseAAElseStatement(AAElseStatement node);
 
     void caseTTrue(TTrue node);
     void caseTFalse(TFalse node);

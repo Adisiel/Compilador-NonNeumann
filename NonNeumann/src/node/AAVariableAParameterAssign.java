@@ -5,45 +5,45 @@ package node;
 import analysis.*;
 
 @SuppressWarnings("nls")
-public final class AAElseStatement extends PAElseStatement
+public final class AAVariableAParameterAssign extends PAParameterAssign
 {
-    private PAExpression _aExpression_;
+    private PAType _aType_;
 
-    public AAElseStatement()
+    public AAVariableAParameterAssign()
     {
         // Constructor
     }
 
-    public AAElseStatement(
-        @SuppressWarnings("hiding") PAExpression _aExpression_)
+    public AAVariableAParameterAssign(
+        @SuppressWarnings("hiding") PAType _aType_)
     {
         // Constructor
-        setAExpression(_aExpression_);
+        setAType(_aType_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new AAElseStatement(
-            cloneNode(this._aExpression_));
+        return new AAVariableAParameterAssign(
+            cloneNode(this._aType_));
     }
 
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseAAElseStatement(this);
+        ((Analysis) sw).caseAAVariableAParameterAssign(this);
     }
 
-    public PAExpression getAExpression()
+    public PAType getAType()
     {
-        return this._aExpression_;
+        return this._aType_;
     }
 
-    public void setAExpression(PAExpression node)
+    public void setAType(PAType node)
     {
-        if(this._aExpression_ != null)
+        if(this._aType_ != null)
         {
-            this._aExpression_.parent(null);
+            this._aType_.parent(null);
         }
 
         if(node != null)
@@ -56,23 +56,23 @@ public final class AAElseStatement extends PAElseStatement
             node.parent(this);
         }
 
-        this._aExpression_ = node;
+        this._aType_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._aExpression_);
+            + toString(this._aType_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._aExpression_ == child)
+        if(this._aType_ == child)
         {
-            this._aExpression_ = null;
+            this._aType_ = null;
             return;
         }
 
@@ -83,9 +83,9 @@ public final class AAElseStatement extends PAElseStatement
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._aExpression_ == oldChild)
+        if(this._aType_ == oldChild)
         {
-            setAExpression((PAExpression) newChild);
+            setAType((PAType) newChild);
             return;
         }
 

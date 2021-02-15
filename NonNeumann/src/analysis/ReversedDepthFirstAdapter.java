@@ -83,6 +83,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getAFunctionParameters().apply(this);
         }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
         if(node.getAType() != null)
         {
             node.getAType().apply(this);
@@ -249,25 +253,29 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAAParametersSequence(node);
     }
 
-    public void inAAParameterAParameter(AAParameterAParameter node)
+    public void inAAVariableAParameter(AAVariableAParameter node)
     {
         defaultIn(node);
     }
 
-    public void outAAParameterAParameter(AAParameterAParameter node)
+    public void outAAVariableAParameter(AAVariableAParameter node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAParameterAParameter(AAParameterAParameter node)
+    public void caseAAVariableAParameter(AAVariableAParameter node)
     {
-        inAAParameterAParameter(node);
+        inAAVariableAParameter(node);
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
         if(node.getAType() != null)
         {
             node.getAType().apply(this);
         }
-        outAAParameterAParameter(node);
+        outAAVariableAParameter(node);
     }
 
     public void inAAAssignFunctionAParameter(AAAssignFunctionAParameter node)
@@ -308,6 +316,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getAParametersAssign() != null)
         {
             node.getAParametersAssign().apply(this);
+        }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
         }
         if(node.getAType() != null)
         {
@@ -366,25 +378,25 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         outAAParametersAssignSequence(node);
     }
 
-    public void inAAParameterAssignAParameterAssign(AAParameterAssignAParameterAssign node)
+    public void inAAVariableAParameterAssign(AAVariableAParameterAssign node)
     {
         defaultIn(node);
     }
 
-    public void outAAParameterAssignAParameterAssign(AAParameterAssignAParameterAssign node)
+    public void outAAVariableAParameterAssign(AAVariableAParameterAssign node)
     {
         defaultOut(node);
     }
 
     @Override
-    public void caseAAParameterAssignAParameterAssign(AAParameterAssignAParameterAssign node)
+    public void caseAAVariableAParameterAssign(AAVariableAParameterAssign node)
     {
-        inAAParameterAssignAParameterAssign(node);
+        inAAVariableAParameterAssign(node);
         if(node.getAType() != null)
         {
             node.getAType().apply(this);
         }
-        outAAParameterAssignAParameterAssign(node);
+        outAAVariableAParameterAssign(node);
     }
 
     public void inAAAssignFunctionAParameterAssign(AAAssignFunctionAParameterAssign node)
@@ -422,9 +434,17 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
     public void caseAAIfThenElseStatementAExpression(AAIfThenElseStatementAExpression node)
     {
         inAAIfThenElseStatementAExpression(node);
-        if(node.getAIfThenElseStatement() != null)
+        if(node.getFalseCond() != null)
         {
-            node.getAIfThenElseStatement().apply(this);
+            node.getFalseCond().apply(this);
+        }
+        if(node.getTrueCond() != null)
+        {
+            node.getTrueCond().apply(this);
+        }
+        if(node.getCond() != null)
+        {
+            node.getCond().apply(this);
         }
         outAAIfThenElseStatementAExpression(node);
     }
@@ -978,6 +998,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getAExpression().apply(this);
         }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
         if(node.getAType() != null)
         {
             node.getAType().apply(this);
@@ -1003,6 +1027,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         {
             node.getAListExpressions().apply(this);
         }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
+        }
         outAACallFunction(node);
     }
 
@@ -1023,6 +1051,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
         if(node.getAListExpressions() != null)
         {
             node.getAListExpressions().apply(this);
+        }
+        if(node.getAExpression() != null)
+        {
+            node.getAExpression().apply(this);
         }
         if(node.getAListIdentifiers() != null)
         {
@@ -1052,6 +1084,10 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             {
                 e.apply(this);
             }
+        }
+        if(node.getIdentifier() != null)
+        {
+            node.getIdentifier().apply(this);
         }
         outAAListIdentifiers(node);
     }
@@ -1129,76 +1165,5 @@ public class ReversedDepthFirstAdapter extends AnalysisAdapter
             node.getAExpression().apply(this);
         }
         outAAListExpressionsSequence(node);
-    }
-
-    public void inAAIfThenElseStatement(AAIfThenElseStatement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAIfThenElseStatement(AAIfThenElseStatement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAIfThenElseStatement(AAIfThenElseStatement node)
-    {
-        inAAIfThenElseStatement(node);
-        if(node.getAElseStatement() != null)
-        {
-            node.getAElseStatement().apply(this);
-        }
-        if(node.getAExpression() != null)
-        {
-            node.getAExpression().apply(this);
-        }
-        if(node.getAIfStatement() != null)
-        {
-            node.getAIfStatement().apply(this);
-        }
-        outAAIfThenElseStatement(node);
-    }
-
-    public void inAAIfStatement(AAIfStatement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAIfStatement(AAIfStatement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAIfStatement(AAIfStatement node)
-    {
-        inAAIfStatement(node);
-        if(node.getAExpression() != null)
-        {
-            node.getAExpression().apply(this);
-        }
-        outAAIfStatement(node);
-    }
-
-    public void inAAElseStatement(AAElseStatement node)
-    {
-        defaultIn(node);
-    }
-
-    public void outAAElseStatement(AAElseStatement node)
-    {
-        defaultOut(node);
-    }
-
-    @Override
-    public void caseAAElseStatement(AAElseStatement node)
-    {
-        inAAElseStatement(node);
-        if(node.getAExpression() != null)
-        {
-            node.getAExpression().apply(this);
-        }
-        outAAElseStatement(node);
     }
 }
